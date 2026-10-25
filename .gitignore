@@ -1,0 +1,93 @@
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+### Java ###
+*.class
+*.log
+hs_err_pid*
+replay_pid*
+
+### Spring Boot ###
+HELP.md
+spring-boot-devtools.properties
+
+# Local configuration containing secrets
+application-local.properties
+application-local.yml
+application-local.yaml
+application-*.local.properties
+application-*.local.yml
+application-*.local.yaml
+
+### Environment variables and secrets ###
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+secrets/
+secrets.*
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### Eclipse / Spring Tool Suite ###
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+### Visual Studio Code ###
+.vscode/
+
+### Gradle (if used by tools) ###
+.gradle/
+build/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### Test reports and coverage ###
+surefire-reports/
+failsafe-reports/
+coverage/
+.jacoco/
+*.exec
+
+### Operating system ###
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+### Temporary files ###
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
