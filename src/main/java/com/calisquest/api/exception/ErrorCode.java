@@ -33,8 +33,11 @@ public enum ErrorCode {
                         HttpStatus.NOT_FOUND,
                         "EXERCISE_NOT_FOUND",
                         "Không tìm thấy bài tập"),
-
-        ;
+        SKILL_NOT_FOUND(
+                        HttpStatus.NOT_FOUND,
+                        "SKILL_NOT_FOUND",
+                        "Không tìm thấy kỹ năng"),
+                        ;
 
         private final HttpStatus status;
         private final String code;
