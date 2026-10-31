@@ -37,7 +37,23 @@ public enum ErrorCode {
                         HttpStatus.NOT_FOUND,
                         "SKILL_NOT_FOUND",
                         "Không tìm thấy kỹ năng"),
-                        ;
+
+        USER_SKILL_ALREADY_EXISTS(
+                        HttpStatus.CONFLICT,
+                        "USER_SKILL_ALREADY_EXISTS",
+                        "Kỹ năng đã có trong danh sách của bạn"),
+
+        USER_SKILL_NOT_FOUND(
+                        HttpStatus.NOT_FOUND,
+                        "USER_SKILL_NOT_FOUND",
+                        "Không tìm thấy kỹ năng trong danh sách của người dùng"),
+
+        INVALID_SKILL_PROGRESS(
+                        HttpStatus.BAD_REQUEST,
+                        "INVALID_SKILL_PROGRESS",
+                        "Tiến độ kỹ năng phải nằm trong khoảng từ 0 đến 100"),
+
+        ;
 
         private final HttpStatus status;
         private final String code;
