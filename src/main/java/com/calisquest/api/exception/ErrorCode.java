@@ -52,6 +52,15 @@ public enum ErrorCode {
                         HttpStatus.BAD_REQUEST,
                         "INVALID_SKILL_PROGRESS",
                         "Tiến độ kỹ năng phải nằm trong khoảng từ 0 đến 100"),
+        INVALID_CREDENTIALS(
+                        HttpStatus.UNAUTHORIZED,
+                        "INVALID_CREDENTIALS",
+                        "Email hoặc mật khẩu không chính xác"),
+
+        EMAIL_ALREADY_EXISTS(
+                        HttpStatus.CONFLICT,
+                        "EMAIL_ALREADY_EXISTS",
+                        "Email đã tồn tại"),
 
         ;
 

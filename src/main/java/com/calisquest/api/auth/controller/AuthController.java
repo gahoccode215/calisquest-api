@@ -1,8 +1,8 @@
-package com.calisquest.api.controller;
+package com.calisquest.api.auth.controller;
 
+import com.calisquest.api.auth.dto.request.RegisterRequest;
+import com.calisquest.api.auth.service.AuthService;
 import com.calisquest.api.common.response.ApiResponseDTO;
-import com.calisquest.api.dto.request.RegisterRequest;
-import com.calisquest.api.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserService userService;
+    private final AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponseDTO<Boolean>> register(
             @Valid @RequestBody RegisterRequest request) {
 
-        userService.register(request);
+        authService.register(request);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
