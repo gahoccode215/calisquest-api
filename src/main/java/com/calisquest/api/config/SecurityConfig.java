@@ -2,16 +2,20 @@ package com.calisquest.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.calisquest.api.security.CustomUserDetailsService;
+import com.calisquest.api.security.JwtAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -19,7 +23,9 @@ public class SecurityConfig {
         private static final String[] PUBLIC_ENDPOINTS = {
                         "/api/v1/auth/**",
                         "/swagger-ui/**",
-                        "/v3/api-docs/**"
+                        "/v3/api-docs/**",
+                        "/v3/api-docs/**",
+                        "/v3/api-docs.yaml"
         };
 
         @Bean
@@ -30,7 +36,8 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain securityFilterChain(
                         HttpSecurity http,
-                        AuthenticationProvider authenticationProvider) throws Exception {
+                        AuthenticationProvider authenticationProvider,
+                        JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
 
                 http
                                 .csrf(AbstractHttpConfigurer::disable)
@@ -42,6 +49,10 @@ public class SecurityConfig {
                                                 .anyRequest().authenticated())
 
                                 .authenticationProvider(authenticationProvider)
+
+                                .addFilterBefore(
+                                                jwtAuthenticationFilter,
+                                                UsernamePasswordAuthenticationFilter.class)
 
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -59,5 +70,11 @@ public class SecurityConfig {
                 provider.setPasswordEncoder(passwordEncoder);
 
                 return provider;
+        }
+
+        @Bean
+        public AuthenticationManager authenticationManager(
+                        AuthenticationConfiguration configuration) throws Exception {
+                return configuration.getAuthenticationManager();
         }
 }

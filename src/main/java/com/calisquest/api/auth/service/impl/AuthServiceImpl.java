@@ -16,6 +16,7 @@ import com.calisquest.api.exception.AppException;
 import com.calisquest.api.exception.ErrorCode;
 import com.calisquest.api.repository.UserRepository;
 import com.calisquest.api.security.CustomUserDetails;
+import com.calisquest.api.security.JwtService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     @Override
     public boolean register(RegisterRequest request) {
@@ -55,13 +57,19 @@ public class AuthServiceImpl implements AuthService {
 
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
+            String accessToken = jwtService.generateToken(userDetails);
+
+            String role = userDetails.getAuthorities()
+                    .iterator()
+                    .next()
+                    .getAuthority();
+
             return new AuthResponse(
                     userDetails.getId(),
                     userDetails.getUsername(),
-                    userDetails.getAuthorities()
-                            .iterator()
-                            .next()
-                            .getAuthority(),
+                    role,
+                    accessToken,
+                    "Bearer",
                     "Login successful");
 
         } catch (AuthenticationException exception) {
